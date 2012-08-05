@@ -1,0 +1,101 @@
+<?php
+require "header.php";
+?>
+<html>
+<STYLE TYPE="text/css">
+	.popup {
+			border-width:1;
+			border-style: solid; 
+			border-color:red;
+			color:red;
+			height:30
+			position:absolute;
+			background-color:white; 
+			visibility:hidden;
+		   }
+	.textField {
+			height:40;
+			border-width:2;
+			border-color:black;
+			border-style:solid;
+			background-color:FFFFFF;
+			color:black;
+		}
+	.fieldName{
+			font-size:1.4em;
+		}
+	.formArea{
+			background-color:#f8f8f8;
+			border-width:4;
+			border-style: solid; 
+			border-color:#f0f0f0;
+			width:500px;
+		}
+	.form_heading{
+			font-size:1.6em;
+			font-weight:bold;
+		}
+</STYLE>
+
+<body>
+<script language="Javascript" src="popup.js"></script>
+<script>
+var valid=false;
+
+function setUp()
+{
+	makepopup ("Item1" ,200, "You cannot enter sumit");
+	makepopup ("Not_empty",200, "You can not leave this empty")
+	makepopup ("Item3",200, "correct");
+}
+
+function validate_email(value,message_id)
+{
+	if(value=="sumit")
+	{
+		hide('Not_empty');
+		show(message_id);
+		valid=false;
+		return;
+	}
+	else if(value=="")
+	{
+		hide(message_id);
+		show('Not_empty');
+		valid=false;
+		return;
+	}
+		hide(message_id);
+		hide('Not_empty');
+		valid=true;
+		show(Item3);
+}
+function isValid()
+{
+	return valid;
+}
+</script>
+
+<CENTER>
+<FORM ACTION="register.php" class="formArea" METHOD=POST onsubmit="return isValid()";>
+	<div class="form_heading">Register</div>
+	<br>
+	<TABLE>
+	<TR>
+	  <TD class="fieldName">Email Address</TD>
+	  <TD><INPUT TYPE=TEXT class = "textField" SIZE=30 NAME="email" onfocus="this.select();" onblur="validate_email(this.value,'Item1');"></TD>
+	</TR>
+	<TR>
+	  <TD class="fieldName">Mobile </TD>
+	  <TD><INPUT TYPE=TEXT class = "textField" SIZE=12 NAME="mobile"></TD>
+	</TR>
+	</TABLE>
+	<INPUT TYPE=SUBMIT VALUE="Register">
+</FORM>
+</CENTER>
+
+<script language="JavaScript">
+setUp()
+</script>
+</body>
+</html>

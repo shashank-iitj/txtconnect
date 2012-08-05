@@ -1,0 +1,16 @@
+<?php include "session.php";
+
+	echo 'You are logged in as '.'<b>'.$_SESSION['current_user'].'</bt><br>';
+?>
+<html>
+	<body>
+	<CENTER>
+		<h3 allign="center" color=red>
+			<a href='joingroup.php' allign>Join a Group</a><br>
+			<a href='mygroups.php'>My groups</a><br>
+			<a href='reg_confirm.php'>Create New Group</a><br>
+		</h3>
+	</CENTER>
+	</body>
+</html>
+

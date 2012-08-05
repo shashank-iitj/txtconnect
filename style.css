@@ -1,0 +1,92 @@
+.popup {
+			border-width:1;
+			border-style: solid;
+			border-color:red;
+			color:red;
+			height:30;
+			background-color:white; 
+			visibility:hidden;
+	}
+.textField {
+			height:40;
+			border-width:2;
+			border-color:#637c81;
+			border-style:solid;
+			color:black;
+	}
+.fieldName{
+			font-size:1.4em;
+			text-align:left;
+			width:160px;
+	}
+.formArea{
+			text-align:center;
+			background-color:#f8f8f8;
+			border-width:2;
+			border-style: solid; 
+			border-color:#f0f0f0;
+			width:500px;
+	}
+.form_heading{
+			font-size:1.6em;
+			font-weight:bold;
+	}
+.error_area{
+			background-color:#f0f0f0;
+			width:300px;
+			border-width:1;
+			border-style: solid; 
+			border-color:#d0d0d0;
+			font-size:1.2em;
+			color:red;
+	}
+
+.header_footer{
+			background-color:#f0f0f0;
+			font-size:1.4em;
+			font-family:Aerial;
+			width:100%;
+	}
+			
+.form_table{
+			padding-left:20px;
+	}
+.grouplist_area{
+			width:300px;
+			background-color:#f0f0f0;
+			border-width:1;
+			border-color:black;
+			border-style:solid;
+	}
+.row_element{
+			border-width:1;
+			border-color:black;
+			border-style:solid;
+			text-align:left;
+	}
+.list_count{
+			text-align:center;
+	}
+.history_area{
+			width:700px;
+			background-color:#f0f0f0;
+			border-width:1;
+			border-color:black;
+			border-style:solid;
+	}
+	
+.submit{
+			width:100px;
+			height:40px;
+			font-size:1.1em;
+			background-color:blue;
+			color:white;
+			border-width:3;
+			border-color:white;
+			border-style:solid;
+	}
+			
+.history_button{
+			background-color:#fff;
+			padding-left:8px;
+	}
