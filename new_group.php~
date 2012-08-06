@@ -1,12 +1,13 @@
 
 <center>
 <?php include "session.php";?>
+<?php include "master_session.php";?>
 <?php
 include "header.php";
 include "upper.php";
 if($_POST){
 	$err="";
-	$db = mysql_connect("localhost","root","");
+	$db = mysql_connect("localhost","root","root");
 	mysql_select_db("txtcnct",$db);
 		
 	if(!$_POST['group_name']){

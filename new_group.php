@@ -1,6 +1,7 @@
 
 <center>
 <?php include "session.php";?>
+<?php include "master_session.php";?>
 <?php
 include "header.php";
 include "upper.php";

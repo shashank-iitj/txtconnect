@@ -9,10 +9,11 @@ function limitText(limitField, limitCount, limitNum) {
 </script>
 
 <?php
-
+include "master_session.php";
 include "session.php";
 include "header.php";
 include "upper.php";
+
 	$db = mysql_connect("localhost","root","root");
 	mysql_select_db("txtcnct",$db);
 	

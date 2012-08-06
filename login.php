@@ -13,7 +13,10 @@ if($_POST){
 			$query = mysql_query('SELECT password,isMaster from registered_user WHERE email='.'"'.$_POST['email'].'"');
 			if(mysql_num_rows($query)!=0){
 				$row = mysql_fetch_assoc($query);
-				if($row['password']==$_POST['password']){
+			
+				$password = crypt($_POST['password'],ss);				
+
+				if($row['password']==$password){
 					session_start();
 					$_SESSION['current_user']=$_POST['email'];
 					if($row['isMaster'])

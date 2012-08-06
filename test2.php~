@@ -1,0 +1,5 @@
+<?php
+$hashed_password = crypt('mypassword',st); // let the salt be automatically generated
+
+	echo $hashed_password;
+?>

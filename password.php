@@ -12,11 +12,16 @@ if(isset($_POST['email']) ){
 				$query = mysql_query('SELECT mobileNo FROM queued_user WHERE email = '.'"'.$_POST['email'].'"',$db);
 				$row = mysql_fetch_assoc($query);
 				$mobile = $row['mobileNo'];
+				$isMaster = 0;
+				$password = crypt($_POST['password1'],ss);
 				
-				//________@@@@@@@@@@@@@______insert code to check whether $_POST['email'] is master or not. add a variable according and insert that into the table
-				
-				mysql_query('INSERT INTO registered_user VALUES('.'"'.$_POST['email'].'"'.','.'"'.$mobile.'"'.','.'"'.$_POST['password1'].'"'.')');
-				mysql_query('DELETE FROM queued_user WHERE mobileNo = '.'"'.$mobile.'"');		//________@@@@@@@@@@@_______check email also			
+				//code to check whether $_POST['email'] is master or not. add a variable according and insert that into the table
+				$query = mysql_query('SELECT * FROM master_table WHERE email = '.'"'.$_POST['email'].'"',$db);				
+				if(mysql_num_rows($query)!=0)
+					$isMaster = 1;
+
+				mysql_query('INSERT INTO registered_user VALUES('.'"'.$_POST['email'].'"'.','.'"'.$mobile.'"'.','.'"'.$password.'"'.','.$isMaster.')');
+				mysql_query('DELETE FROM queued_user WHERE mobileNo = '.'"'.$mobile.'"'.'AND email='.'"'.$_POST['email'].'"');		//________@@@@@@@@@@@_______check email also			
 				echo 'Your registeration is complete now. '.'<a href="login.php">Click </a> Here to go to login page.';
 				$reg_success=true;
 			}

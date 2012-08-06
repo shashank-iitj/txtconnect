@@ -1,15 +1,23 @@
-<?php include "session.php";
+<?php 
+include "session.php";
+include "header.php";
+include "upper.php";
 
-	echo 'You are logged in as '.'<b>'.$_SESSION['current_user'].'</bt><br>';
+
+	echo '<br><br>You are logged in as '.'<b>'.$_SESSION['current_user'].'</b> ';
 ?>
+<br>
 <html>
 	<body>
 	<CENTER>
-		<h3 allign="center" color=red>
-			<a href='joingroup.php' allign>Join a Group</a><br>
-			<a href='mygroups.php'>My groups</a><br>
-			<a href='reg_confirm.php'>Create New Group</a><br>
-		</h3>
+		<FONT size=5>
+			<a href='join_group.php'>Join a Group</a><br>
+			<a href='groups.php'>My groups</a><br>
+<?php
+	if(isset($_SESSION['master']))
+			echo "<a href='new_group.php'>Create New Group</a><br>";
+?>
+		</FONT>
 	</CENTER>
 	</body>
 </html>
