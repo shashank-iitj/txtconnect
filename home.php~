@@ -8,7 +8,7 @@ include "upper.php";
 	echo "</div>";
 
 
-	echo '<br><br>You are logged in as '.'<b>'.$_SESSION['current_user'].'</b> <br><br><br';
+	echo '<br><br>You are logged in as '.'<b>'.$_SESSION['current_user'].'</b> <br><br><br>';
 ?>
 <br>
 	<div class='tiles'>

@@ -11,14 +11,15 @@
 			width:160px;
 	}
 .formArea{
-			text-align:center;
+			margin:0 auto;
 			background-color:#f8f8f8;
 			border-width:2;
 			border-style: solid; 
 			border-color:#f0f0f0;
-			width:500px;
+			width:inherit;
 	}
 .form_heading{
+			text-align:center;
 			font-size:1.6em;
 			font-weight:bold;
 	}
@@ -97,7 +98,7 @@
 .tiles ul li{
 			display:inline-block;
 			height:170px;
-			padding:20px;
+			padding-right:20px;
 	}
 .tiles ul li a
 	{

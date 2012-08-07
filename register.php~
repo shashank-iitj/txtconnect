@@ -22,7 +22,7 @@ if($_POST)
 			}
 		}
 	}
-	$db = mysql_connect("localhost","root","");
+	$db = mysql_connect("localhost","root","root");
 	if($_POST['email'] && $_POST['mobile'])
 	if($db){
 		mysql_select_db("txtcnct",$db);

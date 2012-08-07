@@ -58,11 +58,11 @@ if(!$success)
 				<TD><INPUT TYPE = TEXT SIZE=30 NAME ="email" class="textField" onfocus="this.select();"></TD>
 			</TR>
 			<TR>
-				<TD class="fieldName">Email Confirmation Code </TD>
+				<TD class="fieldName">Email Code </TD>
 				<TD><INPUT TYPE = TEXT SIZE = 4 NAME="email_confirm" class="textField" onfocus="this.select();"></TD>
 			</TR>
 			<TR>
-				<TD class="fieldName">Mobile Confirmation Code </TD>
+				<TD class="fieldName">Mobile Code </TD>
 				<TD><INPUT TYPE =   TEXT SIZE = 4 NAME="mobile_confirm" class="textField" onfocus="this.select();"></TD>
 			</TR>
 		</TABLE>

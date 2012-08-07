@@ -155,4 +155,5 @@ else
 </html>
 <?php
 }
+include "upper2.php";
 ?>

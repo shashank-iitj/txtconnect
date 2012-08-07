@@ -1,7 +1,11 @@
 <?php 
+	echo '<link rel="stylesheet" type="text/css" href="style.css">';
+	echo "<div class='page'>";
 include "session.php";
+	echo "<div class='header'>";
 include "header.php";
 include "upper.php";
+	echo "</div>";
 
 	$db = mysql_connect("localhost","root","root");
 	mysql_select_db("txtcnct",$db);
@@ -21,6 +25,8 @@ include "upper.php";
 				echo "<table class='row_element'><tr><td width='400'>".$row['message']."</TD><TD align='center' width='150'>".$row['sender']."</TD><TD width='150' align='center'>".$row['time']."</TD></TR></TABLE>";
 		}
 		echo "</div></center>";
+		
+		echo "</div>";
 	}
 ?>
 		

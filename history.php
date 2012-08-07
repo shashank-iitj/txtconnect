@@ -1,7 +1,12 @@
 <?php
+	echo '<link rel="stylesheet" type="text/css" href="style.css">';
+	echo "<div class='page'>";
 include "session.php";
+	echo "<div class='header'>";
 include "header.php";
 include "upper.php";
+	echo "</div>";
+
 	$db = mysql_connect("localhost","root","root");
 	mysql_select_db("txtcnct",$db);
 	
@@ -13,7 +18,6 @@ include "upper.php";
 		//echo "<center>You have not joined any groups</center>";
 	}
 	else{
-		echo '<link rel="stylesheet" type="text/css" href="style.css">';
 		while($row=mysql_fetch_array($result1)){
 			echo "<center><TABLE BORDER='1' bgcolor='E0E0E0' width='500'><TR><TD align='center' width='50'>".$i."</TD><TD width='350' align='center'>".$row[0]."</TD><TD><FORM ACTION='group_history.php' METHOD=POST><INPUT TYPE = submit class='history_button' value='View History'><INPUT TYPE = HIDDEN NAME='group_name' "."VALUE="."'".$row[0]."'"."></FORM></TD></TR></TABLE></center>";
 			$i=$i+1;
@@ -35,4 +39,5 @@ include "upper.php";
 	
 	if(mysql_num_rows($result2)==0 && mysql_num_rows($result1)==0)
 		echo "There are no groups to show.";
+	echo "</div>";
 ?>

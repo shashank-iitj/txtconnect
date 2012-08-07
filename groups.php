@@ -1,9 +1,12 @@
 <?php
+	echo '<link rel="stylesheet" type="text/css" href="style.css">';
+	echo "<div class='page'>";
 include "session.php";
+	echo "<div class='header'>";
 include "header.php";
 include "upper.php";
+	echo "</div>";
 ?>
-<link rel="stylesheet" type="text/css" href="style.css">
 	<FORM ACTION='groups.php' METHOD=POST>
 		<center>
 		<table width='500' bgcolor='C0C0C0' align="CENTER"> 
@@ -71,6 +74,7 @@ include "upper.php";
 		}
 		echo "</div></center>";
 	}
+	echo "</div>";
 	
 ?>
 	

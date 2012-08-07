@@ -1,7 +1,12 @@
 <?php 
+	echo '<link rel="stylesheet" type="text/css" href="style.css">';
+	echo "<div class='page'>";
 include "session.php";
+	echo "<div class='header'>";
 include "header.php";
 include "upper.php";
+	echo "</div>";
+
 	$db = mysql_connect("localhost","root","root");
 	mysql_select_db("txtcnct",$db);
 	
@@ -44,4 +49,6 @@ if($_POST)
 			}
 	
 	}
+
+	echo "</div>";
 ?>

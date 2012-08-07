@@ -1,10 +1,15 @@
 
-<center>
-<?php include "session.php";?>
-<?php include "master_session.php";?>
-<?php
+
+<?php 
+	echo '<link rel="stylesheet" type="text/css" href="style.css">';
+	echo "<div class='page'>";
+include "session.php";
+include "master_session.php";
+	echo "<div class='header'>";
 include "header.php";
 include "upper.php";
+	echo "</div>";
+
 if($_POST){
 	$err="";
 	$db = mysql_connect("localhost","root","root");
@@ -37,22 +42,24 @@ if($_POST){
 					<TD><INPUT TYPE=TEXT SIZE=40 HEIGHT=30 NAME="group_name"></TD>
 				</TR>
 			</TABLE>
-			<INPUT TYPE=SUBMIT VALUE="Create Group">
+			<INPUT TYPE=SUBMIT class='submit' VALUE="Create">
 		</FORM>
 <?php
 }
 else{
 ?>
-<FORM ACTION='new_group.php' METHOD=POST>
-	<TABLE bgcolor='C0C0C0'>
+<FORM ACTION='new_group.php' class="formArea" METHOD=POST>
+	<div class="form_heading">Create a new Group</div><br>
+	<TABLE class="form_table">
 		<TR>
-			<TD>Group Name</TD>
-			<TD><INPUT TYPE=TEXT SIZE=40 HEIGHT=30 NAME="group_name"></TD>
+			<TD class="fieldName">Group Name</TD>
+			<TD><INPUT TYPE=TEXT class="textField" SIZE=30 NAME="group_name"></TD>
 		</TR>
 	</TABLE>
-	<INPUT TYPE=SUBMIT VALUE="Create Group">
+	<br>
+	<INPUT TYPE=SUBMIT class='submit' VALUE="Create">
 </FORM>
 <?php
+	echo "</div>";
 }
 ?>
-</center>
