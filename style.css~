@@ -97,7 +97,7 @@
 .tiles ul li{
 			display:inline-block;
 			height:170px;
-			padding-right:20px;
+			padding:20px;
 	}
 .tiles ul li a
 	{
