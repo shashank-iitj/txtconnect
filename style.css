@@ -12,11 +12,14 @@
 	}
 .formArea{
 			margin:0 auto;
-			background-color:#f8f8f8;
+			background-color:#f0f0f0;
 			border-width:2;
 			border-style: solid; 
 			border-color:#f0f0f0;
 			width:500px;
+	}
+form table tr{
+			padding:10px;
 	}
 .form_heading{
 			text-align:center;
@@ -24,20 +27,30 @@
 			font-weight:bold;
 	}
 .error_area{
-			background-color:#f0f0f0;
+			margin:0 auto;
+			background-color:#f8f8f8;
 			width:300px;
 			border-width:1;
 			border-style: solid; 
 			border-color:#d0d0d0;
 			font-size:1.2em;
+			text-align:left;
 			color:red;
 	}
 
-.header_footer{
+.footer{
+			margin:0 auto;
+			width:1100px;
+			height:60px;
 			background-color:#f0f0f0;
-			font-size:1.4em;
+			font-size:20px;
 			font-family:Aerial;
-			width:100%;
+			text-align:right;
+	}
+.footer a{
+			color:white;
+			background-color:#484848;
+			padding:5px;
 	}
 			
 .form_table{
@@ -51,43 +64,67 @@
 			border-style:solid;
 	}
 .row_element{
-			border-width:1;
-			border-color:black;
-			border-style:solid;
-			text-align:left;
+			font-size:20px;
+			padding-left:10px;
 	}
 .list_count{
 			text-align:center;
 	}
-.history_area{
-			width:700px;
+.list_area {
+			margin:0 auto;
 			background-color:#f0f0f0;
 			border-width:1;
 			border-color:black;
 			border-style:solid;
 	}
+.list_area th{
+			font-size:25px;
+			border-bottom:1px solid black;
+			text-decoration:none;
+	}
+
+.list_area .group_name{
+			font-size:20px;
+			padding-left:10px;
+			width:250px;
+			background-color:#d8d8d8;
+	}
+
+.small_submit{
+		display:inline-block;
+		font-size:20px;
+		background-color:#484848;
+		color:white;
+		height:30px;
+		margin-top:5px;
+	}
 	
 .submit{
+			display:block;
 			width:100px;
 			height:40px;
 			font-size:1.1em;
-			background-color:blue;
+			background-color:#484848;
 			color:white;
 			border-width:3;
 			border-color:white;
 			border-style:solid;
+			margin:0 auto;
 	}
-			
+
 .history_button{
 			background-color:#fff;
 			padding-left:8px;
 	}
 
 .logo{
-			padding-top:9px;
-			width:50%;
+			padding:20px 30px;
+			color:#484848;
+			font-size:60px;
 			display:inline-block;
-			background-color:#6285c7;
+	}
+.logo a{
+			color:black;
 	}
 
 .tiles{
@@ -95,54 +132,94 @@
 			width:50%;
 			text-align:center;
 	}
-.tiles ul li{
-			display:inline-block;
-			height:170px;
-			padding-right:20px;
-	}
-.tiles ul li a
-	{
+
+.tiles  a{
+			display:block;
 			padding-top:20px;
 			padding-bottom:50px;
-			padding-left:20px;
 			padding-right:20px;
-			background-color:#484848;
+			margin:30px auto;
+			background-color:#202020;
 			color:white;
 			font-size:1.5em;
 	}
-	
+.tiles a:hover{
+			background-color:#585858;
+	}
 
+.content .usage{
+			width:700px;
+			height:400px;
+			margin:0 auto;
+			padding:10px;
+	}
+.content .usage .image{
+			float:left;
+			margin-right:20px;
+			padding:10px;
+			border: 1px solid #EEE;
+                        box-shadow: 0 0 5px #dddddd, 0 0 0 rgba(0, 0, 0, 0);
+	}
+.content .usage .title{
+			padding-top:30px;
+			font-size:30px;
+	}
+.content .usage .description{
+			font-size:15px;
+			padding-top:20px;
+	}
+
+.description{
+			padding-top:10px;
+			padding-left:10px;
+			font-size:20px;
+			text-align:left;
+	}
+	
+.tile_head{
+			font-size:40px;	
+	}
 .nav{
 			width: 50%;
 			display: inline-block;
 			text-align: right;
-			padding-top:20px;
+			padding-top:30px;
+			padding-right:20px;
 			float: right;
 	}
 .nav ul li{
 			display: inline-block;
-			height: 35px;
+			height: 40px;
 	}
 .nav ul li a{
-			padding: 10px;
-			background: black;
+			padding: 15px;
+			background: #484848;
 			color: white;
 	}
 
 .page{
-			border-left:1px;
-			border-bottom:1px;
-			border-top:0px;
-			border-right:1px;
-			border-color:black;
-			border-style:solid;
-			width:900px;
+			width:100%;
+			background-color:#f0f0f0;
 			margin:0 auto;
 	}
-.header{
-			height:100px;
-			background-color:#6285c7;
+.content{
+			width:1100px;
+			background-color:white;
+			margin:0 auto;
 	}
+.content p{
+			margin:0 30;
+			padding:10 20;
+			font-size:20px;
+	}
+.header{
+			width:1100px;
+			height:150px;
+			background-color:#f0f0f0;
+			margin:0 auto;
+	}
+
+	
 
 a:link {text-decoration:none;}
 a:visited {text-decoration:none;}

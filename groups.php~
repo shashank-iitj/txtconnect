@@ -1,4 +1,11 @@
 <?php
+session_start();
+if(!isset($_SESSION['current_user'])){
+	//die('You must be logged in to see this page.'.'<br><br><h3><a href="login.php">Login</a> now</h3>');
+	include "default_home.php";
+}
+else
+{
 	echo '<link rel="stylesheet" type="text/css" href="style.css">';
 	echo "<div class='page'>";
 include "session.php";
@@ -7,7 +14,6 @@ include "header.php";
 include "upper.php";
 	echo "</div>";
 ?>
-<link rel="stylesheet" type="text/css" href="style.css">
 	<FORM ACTION='groups.php' METHOD=POST>
 		<center>
 		<table width='500' bgcolor='C0C0C0' align="CENTER"> 
@@ -76,6 +82,5 @@ include "upper.php";
 		echo "</div></center>";
 	}
 	echo "</div>";
-	
 ?>
 	

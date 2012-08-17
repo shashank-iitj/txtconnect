@@ -1,7 +1,12 @@
-<CENTER>
 <?php
 //require 'Mail.php';
+	echo '<link rel="stylesheet" type="text/css" href="style.css">';
+	echo "<div class='page'>";
+	echo "<div class='header'>";
 include "header.php";
+include "navigation.php";
+	echo "</div>";
+	echo '<div class="content"><br><br>';
 if($_POST)
 {
 	$required = array("mobile"  => "Mobile No",
@@ -9,7 +14,7 @@ if($_POST)
 	$err = "";
 	foreach($required as $field => $label) {
 	  if (!$_POST[$field]) {
-		$err .= "".$label." is a required field <br>";
+		$err .= "".$label." is a required field. <br>";
 	  }
 	}
 	if($_POST['mobile']){
@@ -46,16 +51,15 @@ if($_POST)
 <link rel="stylesheet" type="text/css" href="style.css">
 <body>
 	<FORM ACTION="register.php" class="formArea" METHOD=POST>
-		<div class="form_heading">Register</div>
 		<br>
 		<TABLE class="form_table">
 		<TR>
 		  <TD class="fieldName">Email Address</TD>
-		  <TD><INPUT TYPE="TEXT" SIZE=30 NAME="email" class = "textField" onfocus="this.select();" VALUE="<?php echo $_POST["email"];?>"></TD>
+		  <TD><INPUT TYPE="TEXT" SIZE=30 NAME="email" class = "textField" onfocus="this.select();" VALUE="<?php echo $_POST["email"];?>"</TD>
 		</TR>
 		<TR>
 		  <TD class="fieldName">Mobile</TD>
-		  <TD><INPUT TYPE="TEXT" SIZE=30 NAME="mobile" class = "textField" onfocus="this.select();" VALUE="<?php echo $_POST["mobile"];?>"></TD>
+		  <TD><INPUT TYPE="TEXT" SIZE=30 NAME="mobile" class = "textField" onfocus="this.select();" VALUE="<?php echo $_POST["mobile"];?>"</TD>
 		</TR>
 		</TABLE>
 		<br>
@@ -77,6 +81,7 @@ if($_POST)
 			
          	  $query = 'INSERT INTO queued_user VALUES('.$email.','.$mobile.','.$confirmation1.','.$confirmation2.')';
 		  mysql_query($query,$db);
+		
 		
 		/*
 		   // Identify the sender, recipient, mail subject, and body
@@ -119,41 +124,40 @@ if($_POST)
 		  $command ='./gsm '.$_POST['mobile'].' "'.'Your text connect registeration code is '.$confirmation2.'"';
 		  echo $command;
 		  echo exec($command);
-		  */
-		  echo "Thank you for registering";
-		  echo "Confirmation codes have been sent at "."'".$email."'".' and Mobile No :'.$mobile.'.'.'<br> <a href="reg_confirm.php">Click</a> Here to go to confirmation page.';
+		*/
+		  
+		  echo "Thank you for registering<br><br>";
+		  echo "Confirmation codes have been sent to email: "."'".$email."'".' and Mobile No :'.$mobile.'.'.'<br><br> <a 				   href="reg_confirm.php">Click</a> Here to go to confirmation page.';
 	}
 	
 }
 else
 {
 ?>
-</CENTER>
 <html>
 <link rel="stylesheet" type="text/css" href="style.css">
 
 <body>
-<CENTER>
+<div class="form_heading">Register</div>
 <FORM ACTION="register.php" class="formArea" METHOD="POST";>
-	<div class="form_heading">Register</div>
 	<br>
 	<TABLE class="form_table">
-	<TR>
-	  <TD class="fieldName">Email Address</TD>
-	  <TD><INPUT TYPE="TEXT" class = "textField" SIZE=30 NAME="email" onfocus="this.select();" onblur=""></TD>
-	</TR>
-	<TR>
-	  <TD class="fieldName">Mobile </TD>
-	  <TD><INPUT TYPE="TEXT" class = "textField" SIZE=30 onfocus="this.select();" NAME="mobile"></TD>
-	</TR>
+		<TR>
+		 	<TD class="fieldName">Email Address</TD>
+		 	<TD><INPUT TYPE="TEXT" class = "textField" SIZE=30 NAME="email" onfocus="this.select();" onblur=""></TD>
+		</TR>
+		<TR>
+			<TD class="fieldName">Mobile </TD>
+			<TD><INPUT TYPE="TEXT" class = "textField" SIZE=30 onfocus="this.select();" NAME="mobile"></TD>
+		</TR>
 	</TABLE>
 	<br>
 	<INPUT type="submit" class="submit" value="Register">
 </FORM>
-</CENTER>
 </body>
 </html>
 <?php
 }
-include "upper2.php";
+echo '<br><br></div>';
+include "footer.php";
 ?>

@@ -1,6 +1,12 @@
-<CENTER>
 <?php
+echo '<link rel="stylesheet" type="text/css" href="style.css">';
+	echo "<div class='page'>";
+	echo "<div class='header'>";
 include "header.php";
+include "navigation.php";
+	echo "</div>";
+	echo '<div class="content"><br><br>';
+
 $success=false;
 $err = "";
 if($_POST){
@@ -58,11 +64,11 @@ if(!$success)
 				<TD><INPUT TYPE = TEXT SIZE=30 NAME ="email" class="textField" onfocus="this.select();"></TD>
 			</TR>
 			<TR>
-				<TD class="fieldName">Email Confirmation Code </TD>
+				<TD class="fieldName">Email Code </TD>
 				<TD><INPUT TYPE = TEXT SIZE = 4 NAME="email_confirm" class="textField" onfocus="this.select();"></TD>
 			</TR>
 			<TR>
-				<TD class="fieldName">Mobile Confirmation Code </TD>
+				<TD class="fieldName">Mobile Code </TD>
 				<TD><INPUT TYPE =   TEXT SIZE = 4 NAME="mobile_confirm" class="textField" onfocus="this.select();"></TD>
 			</TR>
 		</TABLE>
@@ -80,6 +86,6 @@ else
 	</FORM>
 <?php
 }
-include "upper2.php";
+echo '<br><br></div>';
+include "footer.php";
 ?>
-</CENTER>

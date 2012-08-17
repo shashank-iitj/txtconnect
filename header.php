@@ -1,11 +1,7 @@
 <html>
 	<div class='logo'>		
-		<table align="center" border="2" width="400">
-			<TR>
-				<TD align="center">
-					<font size='10' >Text Connect</font>
-				</TD>
-			</TR>
-		</table>
+		<?php 
+			echo "<a href='index.php'>Text Connect</a>";
+		?>
 	</div>
 </html>

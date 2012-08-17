@@ -1,6 +1,11 @@
-<CENTER>
 <?php
+	echo '<link rel="stylesheet" type="text/css" href="style.css">';
+	echo "<div class='page'>";
+	echo "<div class='header'>";
 include "header.php";
+include "navigation.php";
+	echo "</div>";
+	echo '<div class="content"><br><br>';
 if($_POST){
 	$err="";
 	if(!$_POST['email'] or !$_POST['password']){
@@ -21,7 +26,7 @@ if($_POST){
 					$_SESSION['current_user']=$_POST['email'];
 					if($row['isMaster'])
 						$_SESSION['master']=1;
-					header('Location: home.php');
+					header('Location:index.php');
 				}
 				else{
 					$err.="Incorrect username or password";
@@ -39,8 +44,8 @@ if($_POST){
 <html>
 <link rel="stylesheet" type="text/css" href="style.css">
 <body>
+<div class="form_heading">Login</div>
 <FORM ACTION='login.php' METHOD=POST class="formArea">
-	<div class="form_heading">Login</div>
 	<br>
 	<TABLE class="form_table">
 		<TR>
@@ -59,9 +64,7 @@ if($_POST){
 </body>
 </html>
 
-<br><h3>Not registerd yet? <a href="register.php">Register </a> now</h2>
-
 <?php
-include "upper2.php";
+echo '<br><br></div>';
+include "footer.php";
 ?>
-</CENTER>

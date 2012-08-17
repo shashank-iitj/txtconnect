@@ -1,4 +1,11 @@
 <?php
+session_start();
+if(!isset($_SESSION['current_user'])){
+	//die('You must be logged in to see this page.'.'<br><br><h3><a href="login.php">Login</a> now</h3>');
+	include "default_home.php";
+}
+else
+{
 	echo '<link rel="stylesheet" type="text/css" href="style.css">';
 	echo "<div class='page'>";
 include "session.php";
@@ -6,6 +13,8 @@ include "session.php";
 include "header.php";
 include "upper.php";
 	echo "</div>";
+	echo '<div class="content"><br><br>';
+
 
 	$db = mysql_connect("localhost","root","root");
 	mysql_select_db("txtcnct",$db);
@@ -20,16 +29,27 @@ include "upper.php";
 	
 	if(mysql_num_rows($result)==0)
 		echo "There are no more groups to join.";
-	
-	while($row = mysql_fetch_array($result)){
-		echo "<FORM ACTION='join_group.php' METHOD=POST>
-			<center><TABLE border='1'><tr><TD align='center' width='200' bgcolor='C0C0C0'>".$row[0]."</TD>
-			<td align='left'></INPUT><INPUT TYPE = submit value='Join'></INPUT></td>
-			<INPUT TYPE = HIDDEN NAME='group_name' "."VALUE="."'".$row[0]."'".">
+	else{
+		echo "<table class='list_area'><thead><tr><th colspan='2'>Join a group</th></tr></thead>";
+		echo "<tbody>";
+		while($row = mysql_fetch_array($result)){
+		echo "
+			<tr class='row_element'>
+				<TD >".$row[0]."</TD>
+				<td>
+					<FORM ACTION='join_group.php' METHOD='POST'>
+						</INPUT><INPUT TYPE = 'submit' class='small_submit' value='Join'></INPUT>
+						<INPUT TYPE = HIDDEN NAME='group_name' "."VALUE="."'".$row[0]."'".">
+					</FORM>
+				</td>
 			</tr>
-			</table></center>
-		</FORM>";
-	}
+			";
+		}
+		echo "</tbody></table>";
 
+	}
+	echo "<br><br></div>";
+include 'footer.php';
 	echo "</div>";
+}
 ?>

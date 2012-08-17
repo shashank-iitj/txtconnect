@@ -1,6 +1,12 @@
-<CENTER>
 <?php
+echo '<link rel="stylesheet" type="text/css" href="style.css">';
+	echo "<div class='page'>";
+	echo "<div class='header'>";
 include "header.php";
+include "navigation.php";
+	echo "</div>";
+	echo '<div class="content"><br><br>';
+
 $success=false;
 $err = "";
 if($_POST){
@@ -80,6 +86,6 @@ else
 	</FORM>
 <?php
 }
-include "upper2.php";
+echo '<br><br></div>';
+include "footer.php";
 ?>
-</CENTER>
