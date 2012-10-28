@@ -1,4 +1,3 @@
-<CENTER>
 <?php
 	echo '<link rel="stylesheet" type="text/css" href="style.css">';
 	echo "<div class='page'>";
@@ -80,4 +79,3 @@ else{
 	echo "</div>";
 	include "footer.php";
 ?>
-</CENTER>

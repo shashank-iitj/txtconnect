@@ -28,20 +28,23 @@ if($_POST)
 		}
 	}
 	$db = mysql_connect("localhost","root","root");
-	if($_POST['email'] && $_POST['mobile'])
-	if($db){
-		mysql_select_db("txtcnct",$db);
-		$query1 = mysql_query('SELECT * FROM registered_user WHERE email = '.'"'.$_POST['email'].'"',$db);
-		$query2 = mysql_query('SELECT * FROM registered_user WHERE mobileNo = '.'"'.$_POST['mobile'].'"',$db);
-		$r1 = mysql_num_rows($query1);
-		$r2 = mysql_num_rows($query2);
-		if($r1!=0)
-			$err.='The email '.$_POST['email'].' is already registered <br>';
-		if($r2!=0)
-			$err.='Mobile No '.$_POST['mobile'].' is already registered <br>';
+
+	if(!$err)
+	{
+		if($db){
+			mysql_select_db("txtcnct",$db);
+			$query1 = mysql_query('SELECT * FROM registered_user WHERE email = '.'"'.$_POST['email'].'"',$db);
+			$query2 = mysql_query('SELECT * FROM registered_user WHERE mobileNo = '.'"'.$_POST['mobile'].'"',$db);
+			$r1 = mysql_num_rows($query1);
+			$r2 = mysql_num_rows($query2);
+			if($r1!=0)
+				$err.='The email '.$_POST['email'].' is already registered <br>';
+			if($r2!=0)
+				$err.='Mobile No '.$_POST['mobile'].' is already registered <br>';
 		}
-	else{
-		echo "could not connect to database";
+		else{
+			echo "could not connect to database";
+		}
 	}
 	
 	if ($err) {
