@@ -27,16 +27,15 @@ function submit_message($group,$mesg)
 {
 	$filepath = tempnam("/var/www/txtcnct_2/files/requests/","req_");		//creates a file with unique filename
 
-
-
-	//implement appropriate locking mechanism here
 					
 	$fptr = fopen($filepath,"w");
+
+	while(!flock($fptr,LOCK_EX));
 
 	$db = mysql_connect("localhost","root","root");
 	mysql_select_db("txtcnct",$db);
 
-	$message = '"'."[".$group."]".$mesg.'"';
+	$message = '"'."<".$group.">".$mesg.'"';
 	
 //	echo "\nMessage:".$message;
 
@@ -64,6 +63,7 @@ function submit_message($group,$mesg)
 		$data =$row2['mobileNo']." ".$message."\n";
 		fputs($fptr,$data);
 
+		flock($fptr,LOCK_UN);
 		fclose($fptr);
 		echo "<div class='alert alert-success'>Your Message has been submitted</div>";
 	}

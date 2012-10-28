@@ -15,6 +15,7 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
+#include<sys/file.h>
 
 #define BAUDRATE B9600
 #define MODEMDEVICE "/dev/ttyUSB0"
@@ -34,6 +35,7 @@ int main(int argc, char* argv[])
 	struct dirent * dp;
 	struct stat filestatus;
 	FILE * fptr;
+	int fd;
 
 	char line[200]; //reading line one at a time from req_* txt files
 	char phone_no[11];
@@ -68,68 +70,75 @@ int main(int argc, char* argv[])
 			//file_name = "../request/";
 			strcpy(file_name, "../requests/");
 			strcat(file_name, dp->d_name);
-
-			stat( argv[ 1 ], &filestatus );
 			
 			//Ignoring "." and ".."			
 			if (!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, ".."))
 				continue;
+
+			stat(filename, &filestatus );
+	
+			if(filestatus.st_size!=0)
+			{			
 			
-			
-			fptr = fopen(file_name, "r+");
-			printf("Comtents of %s:\n\n", file_name);
-			while (fgets(line,1000,fptr) != NULL)
-			{
-				printf("%s\n",line);
-				strncpy(phone_no, line, 10);
-				phone_no[10] = '\0';
-				strcpy(message, line + 11);
-				printf ("Phone: %s\nMessage:%s len=%d\n",phone_no, message, strlen(message));
-				
-				strcpy(command, "AT+CMGS=\"+91");
-				strcat(command,phone_no);
-				strcat(command,"\"\r\n");
-				printf("Command=%s\n",command);
-				write(modem_fd,command,strlen(command));
-				write(modem_fd,message,strlen(message));
-				write(modem_fd,"\x1A",1);           //x1A means ctrl+Z 
-					 
-				// message has been submitted, check the response of the modem 
-						
-				/*while(1)
+				fptr = fopen(file_name, "r+");
+
+				fd =  fileno(fptr);
+				while(flock(fd,LOCK_EX)==-1);
+
+				printf("Comtents of %s:\n\n", file_name);
+				while (fgets(line,1000,fptr) != NULL)
 				{
-					res = read(modem_fd,buf1,255);
-					
-					if(res==-1)
-					{	
-						fprintf(stderr,	"error status: %d\n%s\n",
-								  res, strerror(errno));
-						printf("%d\n",res);
-						usleep(1000000);
-						continue;
-					} 
-					if(res > 0)
-						//printf("RES == 1 buf1 %s\n",buf1);
-						printf("%d\n",res);
-						continue;   
-						 
-					//buf1[res-1]='\0';              //set end of string, so we can use printf 
-					
-					//if (strncmp(buf1,"OK",2)== 0 ||strncmp(buf1,"ERROR",5)==0)
-						usleep(1000);
-						break;
-				}
-				*/
-				usleep(3000000);
+					printf("%s\n",line);
+					strncpy(phone_no, line, 10);
+					phone_no[10] = '\0';
+					strcpy(message, line + 11);
+					printf ("Phone: %s\nMessage:%s len=%d\n",phone_no, message, strlen(message));
 				
+					strcpy(command, "AT+CMGS=\"+91");
+					strcat(command,phone_no);
+					strcat(command,"\"\r\n");
+					printf("Command=%s\n",command);
+					write(modem_fd,command,strlen(command));
+					write(modem_fd,message,strlen(message));
+					write(modem_fd,"\x1A",1);           //x1A means ctrl+Z 
+						 
+					// message has been submitted, check the response of the modem 
+						
+					/*while(1)
+					{
+						res = read(modem_fd,buf1,255);
+					
+						if(res==-1)
+						{	
+							fprintf(stderr,	"error status: %d\n%s\n",
+									  res, strerror(errno));
+							printf("%d\n",res);
+							usleep(1000000);
+							continue;
+						} 
+						if(res > 0)
+							//printf("RES == 1 buf1 %s\n",buf1);
+							printf("%d\n",res);
+							continue;   
+							 
+						//buf1[res-1]='\0';              //set end of string, so we can use printf 
+					
+						//if (strncmp(buf1,"OK",2)== 0 ||strncmp(buf1,"ERROR",5)==0)
+							usleep(1000);
+							break;
+					}
+					*/
+					usleep(3000000);
+				
+				}
+				flock(fd,LOCK_UN);
+				fclose(fptr);
+				strcpy(command, "mv ");
+				strcat(command, file_name);
+				strcat(command, " ../logs");
+				printf("%s\n",command);
+				system(command);
 			}
-			
-			fclose(fptr);
-			strcpy(command, "mv ");
-			strcat(command, file_name);
-			strcat(command, " ../logs");
-			printf("%s\n",command);
-			system(command);
 		}
 		(void)closedir(dirp);
         

@@ -13,7 +13,6 @@ int main () {
 	printf("file locked");
 
 	flock(fd,LOCK_UN);
-	fclose(fptr);
 	//fprintf(command, "touch %s", "test.txt");
 	//printf("file opened"); 
 	return 0;
