@@ -1,48 +1,60 @@
-<?php
-session_start();
-if(!isset($_SESSION['current_user'])){
-	//die('You must be logged in to see this page.'.'<br><br><h3><a href="login.php">Login</a> now</h3>');
-	header("location:default_home.php");
-}
-else{
- 
-	echo '<link rel="stylesheet" type="text/css" href="style.css">';
-	echo "<div class='page'>";
-	echo "<div class='header'>";
-include "header.php";
-include "upper.php";
-	echo "</div>";
-	echo '<div class="content"><br><br>';
+<html>
+	<head>
+		<title> Text Connect</title>
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<style type="text/css">
+		      body {
+        		padding-top: 60px;
+		        padding-bottom: 40px;
+		      }
+    		</style>
+	</head>
 
-
-	echo '<br><br>You are logged in as '.'<b>'.$_SESSION['current_user'].'</b> <br><br>';
-?>
-<br>
-	<div class='tiles'>
-		<a href='join_group.php'>
-			<div class="tile_head">Join a Group</div>
-			<div class="description">Start following a group to start receiveing updates about that group</div>
-		</a>
-		<a href='groups.php'>
-			<div class="tile_head">My Groups</div>	
-			<div class="description">See which groups you are currently follwing,view message history,unfollow a group etc.</div>	
-		</a>
-<?php
-	if(isset($_SESSION['master']))
-	{
-?>
-	<a href='new_group.php'>
-		<div class="tile_head">Create New Group</div>
-		<div class="description">not available</div>
-	</a>
-<?php
-	}
-
-	echo "</ul>";
-	echo "</div>";
-	echo "</div>";
-	include "footer.php";
-	echo "</div>";
-}
-?>
-
+	<body>
+		<?php
+			include "session.php";
+			include "upper.php";
+		?>
+		<div class="container">
+			You are logged in as <b><?php echo $_SESSION['current_user'];?></b><br> <br>
+			
+			<div class='row'>
+				<div class="span8 offset2">
+					<div class="hero-unit">
+						<a href='join_group.php'>
+							<h2>Join a Group</h2>
+						</a>
+						<p>Start following a group to start receiveing updates about that group</p>
+					</div>
+				</div>
+			</div>
+			<div class='row'>
+				<div class="span8 offset2">
+					<div class="hero-unit">
+						<a href='groups.php'>
+							<h2>My Groups</h2>
+						</a>
+						<p>See which groups you are currently follwing,view message history,unfollow a group etc.</p>
+					</div>
+				</div>
+			</div>
+		<?php
+			if(isset($_SESSION['master']))
+			{
+		?>
+			<div class='row'>
+				<div class="span8 offset2">
+					<div class="hero-unit">
+						<a href='groups.php'>
+							<h2>New Group</h2>
+						</a>
+						<p>Create a new Group</p>
+					</div>
+				</div>
+			</div>
+		<?php
+			}
+		?>
+		</div>
+	</body>
+</html>

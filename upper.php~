@@ -1,9 +1,14 @@
-<html>
-	<div class='nav'>
-		<ul>
-				<li ><a href='home.php'>Home</a></li>
-				<li ><a href='logout.php'>Logout</a></li>
-		</ul>
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="brand" href="index.php">Text Connect</a>
+			<div class="nav-collapse collapse">
+				<ul class="nav nav-pills pull-right">
+					<li ><a href='index.php'>Home</a></li>
+					<li ><a href='logout.php' >Logout </a></li>
+					<li ><a href='reg_confirm.php'>Confirm Registeration</a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
-	<br>
-</html>
+</div>

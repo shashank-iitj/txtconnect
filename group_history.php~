@@ -1,52 +1,53 @@
-<?php
-session_start();
-if(!isset($_SESSION['current_user'])){
-	//die('You must be logged in to see this page.'.'<br><br><h3><a href="login.php">Login</a> now</h3>');
-	include "default_home.php";
-}
-else
-{
-	echo '<link rel="stylesheet" type="text/css" href="style.css">';
-		echo "<div class='page'>";
-	include "session.php";
-		echo "<div class='header'>";
-	include "header.php";
-	include "upper.php";
+<html>
+	<head>
+		<title> Join a group</title>
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<style type="text/css">
+		      body {
+        		padding-top: 60px;
+		        padding-bottom: 40px;
+		      }
+    		</style>
+	</head>
 
-	echo "</div>";
-	echo '<div class="content"><br><br>';
+	<body>
+	<?php
+		include "session.php";
+		include "upper.php";
+	?>
+		<div class="container">
+			<div class="span6 offset2">
+				<?php
 
-	$db = mysql_connect("localhost","root","root");
-	mysql_select_db("txtcnct",$db);
+				$db = mysql_connect("localhost","root","root");
+				mysql_select_db("txtcnct",$db);
 
-	if($_POST){
+				if($_POST){
 		
-		$query = "SELECT message,sender,time FROM message_history WHERE to_group="."'".$_POST['group_name']."'";
-		$result = mysql_query($query,$db);
+					$query = "SELECT message,sender,time FROM message_history WHERE to_group="."'".$_POST['group_name']."'";
+					$result = mysql_query($query,$db);
 		
-		if(mysql_num_rows($result)==0)
-			echo "There are no messages to show";
-		else{
-			echo "<table class='list_area'>
-				<thead>					
-					<tr>
-						<th width='400'>Message</Th>
-						<Th align='center' width='250'>sender</Th>
-						<Th width='200' align='center'>Time</Th>
-					</tr>
-				</thead>
-			      	<tbody>";
-			while($row=mysql_fetch_array($result))
-				echo "<tr class='row_element'>
-						<td width='400'>".$row['message']."</TD>
-						<TD align='center' width='250'>".$row['sender']."</TD>
-						<TD width='200' align='center'>".$row['time']."</TD>
-				     </TR>";
-			echo "</tbody></table>";
-		}
-	}
-	echo "<br><br></div>";
-include 'footer.php';
-	echo "</div>";
-?>
+					echo "
+						<table class='table table-bordered table-hover'>
+							<caption>Showing history for "."'".$_POST['group_name']."'</caption>
+					";
+					if(mysql_num_rows($result)==0)
+					{
+						echo "</table>";
+						echo "<div class='alert'>There are no messages to show</div>";
+					}
+					else{
+						echo "<tbody>";
+						while($row=mysql_fetch_array($result))
+							echo "
+								<tr class='row_element'>
+									<TD>".$row['time']."</TD>
+									<td>".$row['message']."</td>
+									<TD>".$row['sender']."</TD>
+								</TR>
+							";
+						echo "</tbody></table>";
+					}
+				}
+				?>
 		

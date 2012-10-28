@@ -1,62 +1,80 @@
-<?php
-session_start();
-if(!isset($_SESSION['current_user'])){
-	//die('You must be logged in to see this page.'.'<br><br><h3><a href="login.php">Login</a> now</h3>');
-	include "default_home.php";
-}
-else
-{ 
-	echo '<link rel="stylesheet" type="text/css" href="style.css">';
-	echo "<div class='page'>";
-include "session.php";
-	echo "<div class='header'>";
-include "header.php";
-include "upper.php";
-	echo "</div>";
+<html>
+	<head>
+		<title>Unfollow a group</title>
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<style type="text/css">
+		      body {
+        		padding-top: 60px;
+		        padding-bottom: 40px;
+		      }
+    		</style>
+	</head>
 
+	<body>
+	
+	<?php
+		include "session.php";
+		include "upper.php";
+	?>
+		<div class="container">
+			<div class="span6 offset2">
+<?php
 	$db = mysql_connect("localhost","root","root");
 	mysql_select_db("txtcnct",$db);
 	
-if($_POST)
-{
-		$query = "delete from group_member where group_name="."'".$_POST['group_name']."'"." and member_email="."'".$_SESSION['current_user']."'";
-		mysql_query($query,$db);
-		echo "<b>"."'".$_POST['group_name']."'"."</b>"." removes succesfully from your groups.";
-		//header('location:unfollow.php');
+	if($_POST)
+	{
+			$query = "delete from group_member where group_name="."'".$_POST['group_name']."'"." and member_email="."'".$_SESSION['current_user']."'";
+			mysql_query($query,$db);
+			echo "
+				<div class='alert alert-success'>
+					<b>"."'".$_POST['group_name']."'"."</b> removed succesfully from your groups.
+				</div>			
+			";
+			//header('location:unfollow.php');
 
-}
+	}
 ?>
-		<table align="center" bgcolor='C0C0C0' cellpadding='3' colspan='5'>
-			<tr>
-				<td>
-					Click on unfollow to remove a group from your joined list
-				</td>
-			</tr>
-		</table>
-	</FORM>
+
+	
+		<table class="table table-bordered table-hover">
+			<caption>
+					Unfollow a group from your list
+			</caption>
+			
 <?php
 
 	$query = "SELECT group_name FROM group_member WHERE member_email="."'".$_SESSION['current_user']."'";
 	$result = mysql_query($query,$db);
 	
-	echo "<center><font size='5'>Groups <font color='993300'>joined </font> by you</font></center>";
 	if(mysql_num_rows($result)==0){
-		echo "<center><br>---> You have not joined any groups</center>";
+		echo "</table>";
+		echo "<div class='alert'>You have not joined any groups</div>";
 	}
 	else{
+		echo "
+			<tbody>
+		";
 		$i=1;
 			while($row = mysql_fetch_array($result)){
-				echo "<FORM ACTION='unfollow.php' METHOD=POST>
-					<TABLE border='1' width='350' align='center'><tr><TD width='300' align='center'>".$row[0]."</TD>
-					<td></INPUT><INPUT TYPE = submit value='Unfollow'></INPUT></td>
-					<INPUT TYPE = HIDDEN NAME='group_name' "."VALUE="."'".$row[0]."'"."
-					</tr>
-					</table>
-					</FORM>";
+				echo "
+					<tr>
+						<TD>".$row[0]."</TD>
+						<td>
+							<FORM ACTION='unfollow.php' METHOD='POST'>
+									<INPUT TYPE = HIDDEN NAME='group_name' "."VALUE="."'".$row[0]."'".">
+									<button type='submit' class='btn btn-small btn-danger'>Unfollow</button>
+							</FORM>
+						</td>
+					<tr>
+				";
 			}
+		echo "</tbody></table>";
 	
 	}
-
-	echo "</div>";
-}
 ?>
+
+			</div>
+		</div>
+	</body>
+</html>

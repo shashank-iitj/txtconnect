@@ -1,0 +1,5 @@
+To: shashank@iitj.ac.in
+From: "Do NOT Reply"
+Subject: Testing SSMTP
+
+This is a test message sent from SSMTP.

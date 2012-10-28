@@ -1,86 +1,131 @@
-<?php
-session_start();
-if(!isset($_SESSION['current_user'])){
-	//die('You must be logged in to see this page.'.'<br><br><h3><a href="login.php">Login</a> now</h3>');
-	include "default_home.php";
-}
-else
-{
-	echo '<link rel="stylesheet" type="text/css" href="style.css">';
-	echo "<div class='page'>";
-include "session.php";
-	echo "<div class='header'>";
-include "header.php";
-include "upper.php";
-	echo "</div>";
-?>
-	<FORM ACTION='groups.php' METHOD=POST>
-		<center>
-		<table width='500' bgcolor='C0C0C0' align="CENTER"> 
-			<center>
-<?php
-	if(isset($_SESSION['master']))
-	{
-?>
-				<tr>
-				<TD align = "center">
-				<input type="button" value = "Send Message to Group" onClick="window.location.href='message_send.php'"></input>
-				</TD>
-			</tr>
-			<br>
-<?php
-	}
-?>
-			<tr>
-				<TD align="center">
-				<input type="button" value = "Message_history" onClick="window.location.href='history.php'"></input>
-				</TD>
-			</tr><br>
-			<tr>
-				<TD align="center">
-				<input type="button" value = "Unfollow a group" onClick="window.location.href='unfollow.php'"></input>
-				<TD>
-			</tr>
-			</center>
-		</table>
-		</center>
-	</FORM>
-<?php
-	$db = mysql_connect("localhost","root","root");
-	mysql_select_db("txtcnct",$db);
+<html>
+	<head>
+		<title>My groups</title>
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<style type="text/css">
+		      body {
+        		padding-top: 60px;
+		        padding-bottom: 40px;
+		      }
+    		</style>
+	</head>
+
+	<body>
 	
-	$query = "SELECT group_name FROM group_member WHERE member_email="."'".$_SESSION['current_user']."'";
-	$result = mysql_query($query,$db);
+	<?php
+		include "session.php";
+		include "upper.php";
+	?>
+		<div class="container">
+					<?php
+						if(isset($_SESSION['master']))
+						{
+					?>	
+			<div class="span8 offset2">
+				<div class="hero-unit">
+						<button type="submit" class="btn btn-large btn-primary" onClick= "window.location.href='message_send.php'">Send Message</button>
+					<?php
+						}
+						else
+						{
+					?>
+			<div class="span6 offset3">
+				<div class="hero-unit">
+					<?php
+						}
+					?>
+					<button type="submit" class="btn btn-large" onClick="window.location.href='history.php'">Message history</button>
+					<button type="submit" class="btn btn-link" onClick="window.location.href='unfollow.php'">Unfollow a group</button>
+
+				</div>
+			</div>
+		
+			<div class="row">
+			<?php
+				$db = mysql_connect("localhost","root","root");
+				mysql_select_db("txtcnct",$db);
 	
-	echo "<center><font size='5'>Groups <font color='993300'>joined </font> by you</font></center>";
-	if(mysql_num_rows($result)==0){
-		echo "<center>You have not joined any groups</center>";
-	}
-	else{
-		$i=1;
-		echo "<center><div class='grouplist_area'>";
-		while($row=mysql_fetch_array($result)){
-			echo "<table class='row_element'><tr><td class='list_count' width='20'>".$i."</td><td width='280'>".$row[0]."</td></tr></table>";
-			$i=$i+1;
-		}
-		echo "</div></center>";
-	}
+				$query = "SELECT group_name FROM group_member WHERE member_email="."'".$_SESSION['current_user']."'";
+				$result = mysql_query($query,$db);
 	
-	$query = "SELECT group_name FROM groups WHERE owner_email="."'".$_SESSION['current_user']."'";
-	$result = mysql_query($query,$db);
-	echo "<br><br><center><font size='5'>Groups <font color='993300'>owned </font>by you</font></center>";
-	if(mysql_num_rows($result)==0){
-		echo "<center><font size='3'>You don't own any groups.</font></center>";
-	}
-	else{
-		$i=1;
-		echo "<center><div class='grouplist_area'>";
-		while($row=mysql_fetch_array($result)){
-			echo "<table class='row_element'><tr><td class='list_count' width='20'>".$i."</td><td width='280'>".$row[0]."</td></tr></table>";
-			$i=$i+1;
-		}
-		echo "</div></center>";
-	}
-	echo "</div>";
-?>
+				echo "
+					<div class='span5 offset1'>
+						<table class='table table-bordered table-hover'>
+							<caption> Groups <font color='993300'>joined</font> by you</caption>
+				    ";
+				if(mysql_num_rows($result)==0){
+					echo "
+						</table>
+					";
+					echo "<div class='alert'>You have not joined any groups</div>";
+					echo "</div>";				// span4 closing div
+				}
+				else{
+					echo "
+						<thead>
+							<tr>
+								<th>#</th>
+								<th> Group Name</th>
+							</tr>
+						</thead>
+						<tbody>
+					";
+					$i=1;
+	
+					while($row=mysql_fetch_array($result)){
+						echo "
+							<tr>
+								<td>".$i."</td>
+								<td>".$row[0]."</td>
+							</tr>
+						";
+						$i=$i+1;
+					}
+					echo "</thead></table></div>";
+				}
+	
+				$query = "SELECT group_name FROM groups WHERE owner_email="."'".$_SESSION['current_user']."'";
+				$result = mysql_query($query,$db);
+				echo "
+					<div class='span5'>
+						<table class='table table-bordered table-hover'>
+							<caption> Groups <font color='993300'>owned</font> by you</caption>
+				    ";
+				if(mysql_num_rows($result)==0){
+					echo "
+						</table>
+					";
+					echo "<div class='alert'>You don't own any groups</div>";
+					echo "</div>";				// span4 closing div
+				}
+				else{
+					echo "
+						<thead>
+							<tr>
+								<th>#</th>
+								<th> Group Name</th>
+							</tr>
+						</thead>
+						<tbody>
+					";
+					$i=1;
+	
+					while($row=mysql_fetch_array($result)){
+						echo "
+							<tr>
+								<td>".$i."</td>
+								<td>".$row[0]."</td>
+							</tr>
+						";
+						$i=$i+1;
+					}
+					echo "</thead></table></div>";
+				}
+
+			?>
+			</div>
+		</div>	
+
+	</body>
+</html>
 	
