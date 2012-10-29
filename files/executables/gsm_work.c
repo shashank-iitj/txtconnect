@@ -29,16 +29,18 @@ int main(int argc, char* argv[])
 	struct termios oldtio;
 	char message[160]; 
 	char command[255];
-	char buf1[256], file_name[200];
+	char buf1[256], file_name[100],file_path[200];
 
 	DIR *dirp;
 	struct dirent * dp;
 	struct stat filestatus;
-	FILE * fptr;
+	FILE * fptr,*lsofFile_p;
 	int fd;
 
 	char line[200]; //reading line one at a time from req_* txt files
 	char phone_no[11];
+	int length;
+	char ch;
 
 	//open the modem device
 	modem_fd = open(MODEMDEVICE, O_RDWR | O_NOCTTY );  
@@ -62,87 +64,104 @@ int main(int argc, char* argv[])
 	//sample message 
 	
 	
+	char lscommand[] = "ls ../requests/ -t -r | head -n 1";
+	while (1) {
 	
-	//while (1) {
-		
-		dirp = opendir("../requests/");
-        while ((dp = readdir(dirp)) != NULL) {
-			//file_name = "../request/";
-			strcpy(file_name, "../requests/");
-			strcat(file_name, dp->d_name);
-			
-			//Ignoring "." and ".."			
-			if (!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, ".."))
-				continue;
+		length=0;		
+		lsofFile_p = popen(lscommand, "r");
 
-			stat(filename, &filestatus );
-	
-			if(filestatus.st_size!=0)
-			{			
-			
-				fptr = fopen(file_name, "r+");
-
-				fd =  fileno(fptr);
-				while(flock(fd,LOCK_EX)==-1);
-
-				printf("Comtents of %s:\n\n", file_name);
-				while (fgets(line,1000,fptr) != NULL)
-				{
-					printf("%s\n",line);
-					strncpy(phone_no, line, 10);
-					phone_no[10] = '\0';
-					strcpy(message, line + 11);
-					printf ("Phone: %s\nMessage:%s len=%d\n",phone_no, message, strlen(message));
-				
-					strcpy(command, "AT+CMGS=\"+91");
-					strcat(command,phone_no);
-					strcat(command,"\"\r\n");
-					printf("Command=%s\n",command);
-					write(modem_fd,command,strlen(command));
-					write(modem_fd,message,strlen(message));
-					write(modem_fd,"\x1A",1);           //x1A means ctrl+Z 
-						 
-					// message has been submitted, check the response of the modem 
-						
-					/*while(1)
-					{
-						res = read(modem_fd,buf1,255);
-					
-						if(res==-1)
-						{	
-							fprintf(stderr,	"error status: %d\n%s\n",
-									  res, strerror(errno));
-							printf("%d\n",res);
-							usleep(1000000);
-							continue;
-						} 
-						if(res > 0)
-							//printf("RES == 1 buf1 %s\n",buf1);
-							printf("%d\n",res);
-							continue;   
-							 
-						//buf1[res-1]='\0';              //set end of string, so we can use printf 
-					
-						//if (strncmp(buf1,"OK",2)== 0 ||strncmp(buf1,"ERROR",5)==0)
-							usleep(1000);
-							break;
-					}
-					*/
-					usleep(3000000);
-				
-				}
-				flock(fd,LOCK_UN);
-				fclose(fptr);
-				strcpy(command, "mv ");
-				strcat(command, file_name);
-				strcat(command, " ../logs");
-				printf("%s\n",command);
-				system(command);
-			}
+		ch=getc(lsofFile_p);
+		while (ch != '\n' && ch != EOF) {
+			file_name[length] = ch;
+			length++;
+			ch = getc(lsofFile_p);
 		}
-		(void)closedir(dirp);
+		file_name[length]='\0';
+		//char *line_p = fgets(file_name, sizeof(file_name), lsofFile_p);
+		pclose(lsofFile_p);
+
+		if(strlen(file_name)==0)			//no request file is pending
+			continue;
+
+		strcpy(file_path, "../requests/");
+		strcat(file_path, file_name);
+
+		printf("File:%s\n",file_path);
+		
+
+		stat(file_path, &filestatus );
+		
+		printf("size of file: bytes\n");
+
+		if(filestatus.st_size!=0)
+		{			
+		
+			fptr = fopen(file_path, "r+");
+
+			if(fptr)	
+				printf("file opened\n");
+			else
+				printf("file could not be opened\n");
+
+			//fd =  fileno(fptr);
+			//while(flock(fd,LOCK_EX)==-1);
+
+			printf("Contents of %s:\n\n", file_name);
+			while (fgets(line,1000,fptr) != NULL)
+			{
+				printf("%s\n",line);
+				strncpy(phone_no, line, 10);
+				phone_no[10] = '\0';
+				strcpy(message, line + 11);
+				printf ("Phone: %s\nMessage:%s len=%d\n",phone_no, message, strlen(message));
+			
+				strcpy(command, "AT+CMGS=\"+91");
+				strcat(command,phone_no);
+				strcat(command,"\"\r\n");
+				printf("Command=%s\n",command);
+				write(modem_fd,command,strlen(command));
+				write(modem_fd,message,strlen(message));
+				write(modem_fd,"\x1A",1);           //x1A means ctrl+Z 
+					 
+				// message has been submitted, check the response of the modem 
+					
+				/*while(1)
+				{
+					res = read(modem_fd,buf1,255);
+				
+					if(res==-1)
+					{	
+						fprintf(stderr,	"error status: %d\n%s\n",
+								  res, strerror(errno));
+						printf("%d\n",res);
+						usleep(1000000);
+						continue;
+					} 
+					if(res > 0)
+						//printf("RES == 1 buf1 %s\n",buf1);
+						printf("%d\n",res);
+						continue;   
+						 
+					//buf1[res-1]='\0';              //set end of string, so we can use printf 
+				
+					//if (strncmp(buf1,"OK",2)== 0 ||strncmp(buf1,"ERROR",5)==0)
+						usleep(1000);
+						break;
+				}
+				*/
+				usleep(3000000);
+			
+			}
+			flock(fd,LOCK_UN);
+			fclose(fptr);
+			strcpy(command, "mv ");
+			strcat(command, file_path);
+			strcat(command, " ../logs");
+			printf("%s\n",command);
+			system(command);
+		}
         
-	//}
+	}
 	return 0;
 
 }
